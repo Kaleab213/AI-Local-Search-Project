@@ -1,2 +1,2 @@
-# AI-Project-Two
-A repository for Introduction to Artificial Intelligence course project two. 
+# AI-Local-Search-Project
+A repository for AI based local search algorithms project. 
