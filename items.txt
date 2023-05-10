@@ -1,0 +1,4 @@
+50
+Item,weight,value, n_items
+Phone,0.19,1000, 5
+Laptop,1.1,700, 2
