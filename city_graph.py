@@ -1,11 +1,13 @@
 from  graph import Graph
+# import os
+# print(os.getcwd())
 
 cities = open("cities.txt", "r")
 cities_graph =Graph()
 
 for line in cities:
     arr = line.split()
-    # print(arr)
+    # print("arr",arr)
     if len(arr) == 3:
         city, latitude, longitude = arr
     else:
@@ -41,5 +43,7 @@ cities_graph.insert_edge_by_item('Urziceni',142,'Vaslui')
 cities_graph.insert_edge_by_item('Hirsova',86,'Eforie')
 cities_graph.insert_edge_by_item('Vaslui',92,'Iasi')
 cities_graph.insert_edge_by_item('Iasi',87,'Neamt')
+cities_graph.insert_edge_by_item('Giurgiu',90,'Bucharest')
 
+# print(cities_graph)
 print(cities_graph.graphdict())
