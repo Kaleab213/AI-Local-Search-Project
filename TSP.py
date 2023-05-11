@@ -1,8 +1,18 @@
 from  graph import Graph
 from math import ceil, floor
 import random
+import argparse
 
-cities = open("cities.txt", "r")
+# Create the command line argument parser
+parser = argparse.ArgumentParser(description="TSP Solver")
+parser.add_argument("--algorithm", type=str, default="ga", help="algorithm to be used (default: ga)")
+parser.add_argument("--file", type=str, default="cities.txt", help="file containing city list (default: cities.txt)")
+
+# Parse the provided command line arguments
+args = parser.parse_args()
+
+# Access the arguments using args.algorithm and args.file
+cities = open(args.file, "r")
 cities_graph =Graph()
 
 for line in cities:
