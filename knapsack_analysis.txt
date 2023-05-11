@@ -1,0 +1,41 @@
+
+Knapsack probelm using Hill climbing algorithm
+
+The knapsack problem is a combinatorial optimization problem that involves 
+selecting a subset of items with maximum value while keeping the total weight
+within a given limit. Hill climbing is a local search algorithm that iteratively
+improves the current solution by making small changes to it.
+
+The code starts by generating a random initial result and calculating the 
+value and weight of the initial result. It then keeps track of the best result 
+found so far and iterates until no further improvements can be made. In each 
+iteration, it generates all neighbors of the current result and evaluates all
+ neighbors to select the best one. If no better neighbor was found, it returns 
+the best result found so far.
+
+The code takes two parameters: the first is a 2xN array of integers that represents
+the items and their weight and value, and the second is an integer that represents
+the maximum weight allowed. The output of the code is the best result found and its
+corresponding value.
+
+
+
+knapsack problem using Simulated Annealing algorithm
+
+The knapsack problem is a combinatorial optimization problem that involves 
+selecting a subset of items with maximum value while keeping the total weight
+within a given limit. Simulated annealing is a stochastic global search 
+optimization algorithm that makes use of randomness as part of the search 
+process.
+
+The code starts by reading the input file containing the items and their 
+weight and value. It then generates a random initial result and calculates 
+the value and weight of the initial result. It keeps track of the best result
+found so far and iterates until no further improvements can be made. In each
+iteration, it generates a random neighbor of the current result and evaluates 
+all neighbors to select the best one. If no better neighbor was found, it returns 
+the best result found so far.
+
+The code takes one parameter: the file containing the items. The output of the
+ code is the best result found and its corresponding value.
+

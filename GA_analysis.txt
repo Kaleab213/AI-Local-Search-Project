@@ -1,0 +1,25 @@
+Solving the TSP Problem for Romanian Cities using a Genetic Algorithm
+
+The Romanian city graph does not conform to the classical Traveling Salesman 
+Problem (TSP) because some cities require more than one visit. In order to 
+address this issue, one constraint of the TSP was relaxed by allowing multiple 
+visits to some cities. However, the number of revisits was minimized by keeping 
+track of unvisited cities and avoiding revisiting a city unless there were no 
+unvisited neighbors.
+
+To create a population that included all cities, and to allow for mutations and 
+crossovers to occur at a specified index, the index at which all cities would be 
+visited was tracked.
+
+To implement the genetic algorithm, a population of 201 individuals was initialized 
+using the above procedure. The fitness function "tsp_fitness()" was then used to 
+calculate the total distance traveled by each individual.
+
+The fittest individuals from the population were selected and used to generate a new 
+population using crossover and mutation. During crossover, individuals were sliced after 
+the index where all cities would be visited, to ensure that no city was left unvisited. 
+Moreover, the first and last cities of the slices were made neighbors to avoid traveling 
+through an unallowed path. Furthermore, an individual was mutated by selecting a random 
+city after the index where all cities would be visited and replacing it with a neighbor 
+that was adjacent to both the previous and next cities.
+
