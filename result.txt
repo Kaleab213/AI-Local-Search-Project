@@ -1,0 +1,3 @@
+cost of best route:  2815
+path of best route:  ['Timisoara', 'Lugoj', 'Mehadia', 'Drobeta', 'Craiova', 'Rimnicu Vilcea', 'Pitesti', 'Bucharest', 'Giurgiu', 'Bucharest', 'Urziceni', 'Hirsova', 'Eforie', 'Hirsova', 'Urziceni', 'Vaslui', 'Iasi', 'Neamt', 'Iasi', 'Vaslui', 'Urziceni', 'Bucharest', 'Fagaras', 'Sibiu', 'Oradea', 'Zerind', 'Arad']
+num of visted nodes of best route:  27

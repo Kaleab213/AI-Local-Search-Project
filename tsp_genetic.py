@@ -1,60 +1,6 @@
-from  graph import Graph
 from math import ceil, floor
 import random
-import argparse
-
-# Create the command line argument parser
-parser = argparse.ArgumentParser(description="TSP Solver")
-parser.add_argument("--algorithm", type=str, default="ga", help="algorithm to be used (default: ga)")
-parser.add_argument("--file", type=str, default="cities.txt", help="file containing city list (default: cities.txt)")
-
-# Parse the provided command line arguments
-args = parser.parse_args()
-
-# Access the arguments using args.algorithm and args.file
-cities = open(args.file, "r")
-cities_graph =Graph()
-
-for line in cities:
-    arr = line.split()
-    if len(arr) == 3:
-        city, latitude, longitude = arr
-    else:
-        latitude, longitude = arr[-2:]
-        city = ""
-        for _ in arr[:-3]:
-            city += _ +  " "
-        city += arr[-3]
-    node = cities_graph.create_node(city, float(latitude), float(longitude))
-    cities_graph.insert_node(node)
-
-# manually adding edges beteween the cities in romania from page 83rd of the textbook
-
-cities_graph.insert_edge_by_item('Oradea',151,'Sibiu')
-cities_graph.insert_edge_by_item('Oradea',71,'Zerind')
-cities_graph.insert_edge_by_item('Zerind',75,'Arad')
-cities_graph.insert_edge_by_item('Arad',140,'Sibiu')
-cities_graph.insert_edge_by_item('Arad',118,'Timisoara')
-cities_graph.insert_edge_by_item('Sibiu',99,'Fagaras')
-cities_graph.insert_edge_by_item('Sibiu',80,'Rimnicu Vilcea')
-cities_graph.insert_edge_by_item('Timisoara',111,'Lugoj')
-cities_graph.insert_edge_by_item('Lugoj',70,'Mehadia')
-cities_graph.insert_edge_by_item('Mehadia',75,'Drobeta')
-cities_graph.insert_edge_by_item('Drobeta',120,'Craiova')
-cities_graph.insert_edge_by_item('Craiova',138,'Pitesti')
-cities_graph.insert_edge_by_item('Rimnicu Vilcea',97,'Pitesti')
-cities_graph.insert_edge_by_item('Rimnicu Vilcea',146,'Craiova')
-cities_graph.insert_edge_by_item('Fagaras',211,'Bucharest')
-cities_graph.insert_edge_by_item('Pitesti',101,'Bucharest')
-cities_graph.insert_edge_by_item('Bucharest',90,'Urziceni')
-cities_graph.insert_edge_by_item('Urziceni',98,'Hirsova')
-cities_graph.insert_edge_by_item('Urziceni',142,'Vaslui')
-cities_graph.insert_edge_by_item('Hirsova',86,'Eforie')
-cities_graph.insert_edge_by_item('Vaslui',92,'Iasi')
-cities_graph.insert_edge_by_item('Iasi',87,'Neamt')
-cities_graph.insert_edge_by_item('Giurgiu',90,'Bucharest')
-
-graph = cities_graph.graphdict()
+from tsp import graph
 
 cities = ["Eforie", "Mehadia", "Hirsova", "Drobeta", "Vaslui", "Craiova", "Sibiu", "Iasi", "Rimnicu Vilcea", "Neamt", "Fagaras", "Zerind", "Pitesti", "Oradea", "Giurgiu", "Arad", "Bucharest", "Timisoara", "Urziceni", "Lugoj"]
 cities = list(set(cities))
@@ -94,6 +40,7 @@ for _ in range(201):
 
         path.append(random_neighbor)
         current = random_neighbor
+    
     
     population.append((path,allvisited) )
 
@@ -196,7 +143,9 @@ def geneticAlgorithm(population, fitnessFn, graph):
         noOfIter += 1
     return selectedPops[0]
 
-(individual, total_distance, _) = geneticAlgorithm(population, tsp_fitness, graph)
-print("total_distance_travelled: ", total_distance)
-print("the_fit_individual: ", individual)
+
+if __name__ == "__main__":
+    (individual, total_distance, _) = geneticAlgorithm(population, tsp_fitness, graph)
+    print("total_distance_travelled: ", total_distance)
+    print("the_fit_individual: ", individual)
 
