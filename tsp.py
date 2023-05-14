@@ -2,10 +2,7 @@ from  graph import Graph
 from math import ceil, floor
 import random
 import argparse
-from tsp_genetic import *
-from tsp_simulated import simulated_annealing
-from tsp_optimal import optimal_algorithm
-from tsp_hill import hill_climbing
+
 
 # Create the command line argument parser
 parser = argparse.ArgumentParser(description="TSP Solver")
@@ -111,38 +108,42 @@ def get_successor(graph):
     return sorted(population)[0]
 
 
+if __name__ == "__main__":
+    from tsp_genetic import *
+    from tsp_simulated import simulated_annealing
+    from tsp_optimal import optimal_algorithm
+    from tsp_hill import hill_climbing
+    if args.algorithm == 'ga':
+        path, cost, visited = geneticAlgorithm(population, tsp_fitness, graph)
+        print("genetic algorithm")
+        print("cost for best route: ", cost)
+        print("path for best route: ", path)
+    if args.algorithm == 'sa':
+        # Initialize current solution
 
-if args.algorithm == 'ga':
-    path, cost, visited = geneticAlgorithm(population, tsp_fitness, graph)
-    print("genetic algorithm")
-    print("cost for best route: ", cost)
-    print("path for best route: ", path)
-if args.algorithm == 'sh':
-    # Initialize current solution
+        current_cost, visited,  current_route = get_successor(graph)
 
-    current_cost, visited,  current_route = get_successor(graph)
+        start_temp = 100
+        end_temp = 0.1
+        cooling_rate = 0.69
+        num_iterations = 10000
+        # Run simulated annealing
+        best_route, best_cost = simulated_annealing(current_route, current_cost, start_temp, end_temp, cooling_rate, num_iterations)
 
-    start_temp = 100
-    end_temp = 0.1
-    cooling_rate = 0.69
-    num_iterations = 10000
-    # Run simulated annealing
-    best_route, best_cost = simulated_annealing(current_route, current_cost, start_temp, end_temp, cooling_rate, num_iterations)
+        # Print solution
+        print("simulated anneheling algorithm")
+        print("cost for best route: ", best_cost)
+        print("path for best route: ", best_route)
+    if args.algorithm == 'hc':
+        num_iterations = 500
 
-    # Print solution
-    print("simulated anneheling algorithm")
-    print("cost for best route: ", best_cost)
-    print("path for best route: ", best_route)
-if args.algorithm == 'hc':
-    num_iterations = 500
+        # Initialize current solution
+        current_cost, visted, current_route = get_successor(graph)
 
-    # Initialize current solution
-    current_cost, visted, current_route = get_successor(graph)
-
-    cost, path= hill_climbing(current_route, current_cost, num_iterations, graph)
-    print("hill climbing algorithm")
-    print("cost for best route: ", cost)
-    print("path for best route: ", path)
+        cost, path= hill_climbing(current_route, current_cost, num_iterations, graph)
+        print("hill climbing algorithm")
+        print("cost for best route: ", cost)
+        print("path for best route: ", path)
    
 
 
