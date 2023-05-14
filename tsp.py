@@ -13,10 +13,11 @@ parser.add_argument("--file", type=str, default="cities.txt", help="file contain
 args = parser.parse_args()
 
 # Access the arguments using args.algorithm and args.file
-cities = open(args.file, "r")
+cities_file = open(args.file, "r")
+cities = []
 cities_graph =Graph()
 
-for line in cities:
+for line in cities_file:
     arr = line.split()
     if len(arr) == 3:
         city, latitude, longitude = arr
@@ -26,8 +27,10 @@ for line in cities:
         for _ in arr[:-3]:
             city += _ +  " "
         city += arr[-3]
+    cities.append(city)
     node = cities_graph.create_node(city, float(latitude), float(longitude))
     cities_graph.insert_node(node)
+
 
 # manually adding edges beteween the cities in romania from page 83rd of the textbook
 
@@ -66,7 +69,7 @@ def tsp_fitness(individual, graph):
         distance += edge_weight
     return distance
 
-def get_successor(graph):
+def get_intial_path(graph):
     population = []
     current = random.choice(cities)
     goal = current
@@ -121,7 +124,7 @@ if __name__ == "__main__":
     if args.algorithm == 'sa':
         # Initialize current solution
 
-        current_cost, visited,  current_route = get_successor(graph)
+        current_cost, visited,  current_route = get_intial_path(graph)
 
         start_temp = 100
         end_temp = 0.1
@@ -138,13 +141,16 @@ if __name__ == "__main__":
         num_iterations = 500
 
         # Initialize current solution
-        current_cost, visted, current_route = get_successor(graph)
+        current_cost, visted, current_route = get_intial_path(graph)
 
         cost, path= hill_climbing(current_route, current_cost, num_iterations, graph)
         print("hill climbing algorithm")
         print("cost for best route: ", cost)
         print("path for best route: ", path)
-   
+    if args.algorithm == 'opt':
+        node = random.choice(cities)
+        cost, visited, path = optimal_algorithm(graph, node)
+
 
 
 
