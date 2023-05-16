@@ -29,34 +29,3 @@ def genetic_algorithm(items, max_weight, population_size=100, generations=1000):
     return best_solution
 
 
-def hill_climbing(items, max_weight, iterations=1000):
-    current_solution = [random.randint(0, item.n_items) for item in items]
-
-    for _ in range(iterations):
-        neighbor = copy.deepcopy(current_solution)
-        mutation_index = random.randint(0, len(items) - 1)
-        neighbor[mutation_index] = random.randint(0, items[mutation_index].n_items)
-
-        if fitness(neighbor, items, max_weight) > fitness(current_solution, items, max_weight):
-            current_solution = neighbor
-
-    return current_solution
-
-
-def simulated_annealing(items, max_weight, initial_temperature=100, cooling_rate=0.99, iterations=1000):
-    current_solution = [random.randint(0, item.n_items) for item in items]
-    temperature = initial_temperature
-
-    for _ in range(iterations):
-        neighbor = copy.deepcopy(current_solution)
-        mutation_index = random.randint(0, len(items) - 1)
-        neighbor[mutation_index] = random.randint(0, items[mutation_index].n_items)
-
-        delta_fitness = fitness(neighbor, items, max_weight) - fitness(current_solution, items, max_weight)
-
-        if delta_fitness > 0 or random.random() < np.exp(delta_fitness / temperature):
-            current_solution = neighbor
-
-        temperature *= cooling_rate
-
-    return current_solution
