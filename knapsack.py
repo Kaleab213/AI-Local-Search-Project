@@ -115,8 +115,7 @@ def main():
             item = items[i]
             print(f"{item.name}: {count}  its value: {count * item.value}")
         print(f"Total value: {total_value}")
-        total_value = calculate_total_value(solution, items)
-        print(f'Total Value: {total_value}')
+        
         
     elif args.algorithm == 'sa':
         solution = simulated_annealing(max_weight, items)
