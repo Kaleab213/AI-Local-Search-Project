@@ -1,8 +1,4 @@
 from tsp import graph
-
-
-
-
 def optimal_algorithm(graph, node):
     edge_dict = graph
     unvisited_node = set([node for node in graph])

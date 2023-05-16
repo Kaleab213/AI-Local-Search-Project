@@ -6,7 +6,7 @@ import argparse
 
 # Create the command line argument parser
 parser = argparse.ArgumentParser(description="TSP Solver")
-parser.add_argument("--algorithm", type=str, default="ga", help="algorithm to be used (default: ga)")
+parser.add_argument("--algorithm", type=str, default="ga", help="algorithm to be used (default: ga: genetic, sa: simulated anneheling, hc: hill climbing )")
 parser.add_argument("--file", type=str, default="cities.txt", help="file containing city list (default: cities.txt)")
 
 # Parse the provided command line arguments
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
         start_temp = 100
         end_temp = 0.1
-        cooling_rate = 0.69
+        cooling_rate = 0.99
         num_iterations = 10000
         # Run simulated annealing
         best_route, best_cost = simulated_annealing(current_route, current_cost, start_temp, end_temp, cooling_rate, num_iterations)
@@ -150,6 +150,9 @@ if __name__ == "__main__":
     if args.algorithm == 'opt':
         node = random.choice(cities)
         cost, visited, path = optimal_algorithm(graph, node)
+        print("optimal algorithm")
+        print("cost for best route: ", cost)
+        print("path for best route: ", path)
 
 
 
