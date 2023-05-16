@@ -2,8 +2,7 @@ import argparse
 import csv
 import random
 import math
-
-
+import time
 
 class Item:
     def __init__(self, name, weight, value, n_items):
@@ -13,9 +12,20 @@ class Item:
         self.n_items = n_items
 
 
+def generate_random_items(num_items):
+    items = []
+    for i in range(num_items):
+        name = f"Item{i+1}"
+        weight = random.uniform(1, 10)
+        value = random.randint(1, 100)
+        n_items = random.randint(0, 5)
+        item = Item(name, weight, value, n_items)
+        items.append(item)
+    return items
+
+
 def read_input_file(filename):
     with open(filename, 'r') as f:
-        
         lines = f.readlines()
 
     max_weight = int(lines[0].strip())
@@ -29,11 +39,6 @@ def read_input_file(filename):
             items.append(item)
 
     return max_weight, items
-
-
-
-
-# Genetic Algorithm
 
 def initialize_population(items, population_size):
     population = []
@@ -216,48 +221,66 @@ def calculate_total_value(solution, items):
         item = items[i]
         total_value += count * item.value
     return total_value
+
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--algorithm', help='Algorithm to use (ga, hc, sa)')
+    parser.add_argument('--num_items', type=int, help='Number of items')
     parser.add_argument('--file', help='Input file name')
     args = parser.parse_args()
 
-    max_weight, items = read_input_file(args.file)
+    if args.file:
+        max_weight, items = read_input_file(args.file)
+    else:
+        max_weight = 100
+        items = generate_random_items(args.num_items)
 
     if args.algorithm == 'ga':
+        start_time = time.time()
         solution = genetic_algorithm(max_weight, items)
+        end_time = time.time()
         total_value = evaluate_fitness(solution, items, max_weight)
         print("Items:")
         for i, count in enumerate(solution):
             item = items[i]
             print(f"{item.name}: {count}  its value: {count * item.value}")
         print(f"Total value: {total_value}")
+        print(f"Execution time: {end_time - start_time:.3f} seconds")
     elif args.algorithm == 'hc':
+        start_time = time.time()
         solution = hill_climbing(max_weight, items)
+        end_time = time.time()
         total_value = evaluate_fitness(solution, items, max_weight)
         print("Items:")
         for i, count in enumerate(solution):
             item = items[i]
             print(f"{item.name}: {count}  its value: {count * item.value}")
         print(f"Total value: {total_value}")
-        
-        
+        print(f"Execution time: {end_time - start_time:.3f} seconds")
+        total_value = calculate_total_value(solution, items)
+        print(f"Total Value: {total_value}")
     elif args.algorithm == 'sa':
+        start_time = time.time()
         solution = simulated_annealing(max_weight, items)
+        end_time = time.time()
         total_value = evaluate_fitness(solution, items, max_weight)
         print("Items:")
         for i, count in enumerate(solution):
             item = items[i]
             print(f"{item.name}: {count}  its value: {count * item.value}")
         print(f"Total value: {total_value}")
+        print(f"Execution time: {end_time - start_time:.3f} seconds")
     else:
         print("Invalid algorithm specified.")
         return
 
-
-
 if __name__ == '__main__':
     main()
+    
+    
+# To run the program use 
+#   choose your algorithm from hc, sa, ga  and tell number items in last row
 
-
-
+ #       this command   python knapsack_Testcase.py --algorithm ga --num_items 20
