@@ -43,26 +43,4 @@ def simulated_annealing(max_weight, items, initial_temperature=1000, cooling_rat
 
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Solve the knapsack problem using simulated annealing.')
-    parser.add_argument('--file', type=str, required=True,
-                        help='The file containing the items.')
-    args = parser.parse_args()
 
-    with open(args.file) as f:
-        max_weight = int(f.readline().strip())
-        items = []
-        f.readline()  # Ignore header line.
-        for line in f:
-            parts = line.strip().split(',')
-            items.append((int(parts[2]), float(parts[1]), int(parts[3])))
-
-    result, value = simulated_annealing(items, max_weight)
-    print(f'result: {result}')
-    print(f'Value: {value}')
-
-
-# run the following code using terminal
-
-    # enter      python knapsack_SimulatedAnnealing.py  --file items.txt

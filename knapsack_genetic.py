@@ -82,12 +82,4 @@ def genetic_algorithm(max_weight, items, population_size=100, num_generations=10
     return best_solution
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--algorithm', type=str, default='ga')
-    parser.add_argument('--file', type=str)
-    args = parser.parse_args()
-    max_weight, items = read_input_file('items.txt')
-    best_individual, best_value = genetic_algorithm(max_weight, items)
-    print('Best individual:', best_individual)
-    print('Best value:', best_value)
+
