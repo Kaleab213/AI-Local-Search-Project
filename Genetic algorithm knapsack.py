@@ -1,3 +1,33 @@
+import sys
+import argparse
+import random
+import numpy as np
+import copy
+
+def read_file(file_path):
+    with open(file_path, 'r') as f:
+        lines = f.readlines()
+        max_weight = float(lines[0].strip())
+        items = [Item(*line.strip().split(',')) for line in lines[2:]]
+        for item in items:
+            item.weight = float(item.weight)
+            item.value = float(item.value)
+            item.n_items = int(item.n_items)
+    return max_weight, items
+
+
+
+
+
+def fitness(solution, items, max_weight):
+    total_weight = sum([item.weight * count for item, count in zip(items, solution)])
+    total_value = sum([item.value * count for item, count in zip(items, solution)])
+
+    if total_weight <= max_weight:
+        return total_value
+    else:
+        return -1
+
 def genetic_algorithm(items, max_weight, population_size=100, generations=1000):
     # Initialization
     population = []
